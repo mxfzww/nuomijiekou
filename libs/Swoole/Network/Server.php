@@ -207,14 +207,17 @@ class Server extends Base implements Driver
     {
         if (class_exists('\\swoole_server', false))
         {
+            //echo 123;
             return new self($host, $port, $ssl);
         }
         elseif (function_exists('event_base_new'))
         {
+            //echo 456;
             return new EventTCP($host, $port, $ssl);
         }
         else
         {
+            echo 789;
             return new SelectTCP($host, $port, $ssl);
         }
     }
@@ -381,6 +384,7 @@ class Server extends Base implements Driver
         }
         else
         {
+            //echo 123;
             $this->sw->on('Receive', array($this->protocol, 'onReceive'));
         }
         if (is_callable(array($this->protocol, 'WorkerStop')))
@@ -398,6 +402,7 @@ class Server extends Base implements Driver
 
         if (is_callable(array($this->protocol, 'onTask')))
         {
+            //echo 123;
             $this->sw->on('Task', array($this->protocol, 'onTask'));
             $this->sw->on('Finish', array($this->protocol, 'onFinish'));
         }

@@ -32,7 +32,7 @@ Swoole\Network\Server::start(function ()
     /**
      * 设置用户名密码
      */ 
-    $AppSvr->addAllowUser('rpcname', 'rpc@123456');
+    $AppSvr->addAllowUser('zhaowei', 'zhaoweidemima');
 
     Swoole\Error::$echo_html = false;
     $server = Swoole\Network\Server::autoCreate('0.0.0.0', 9999);

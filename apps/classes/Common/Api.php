@@ -5,7 +5,9 @@ use Hoa\Core\Exception\Exception;
 use Swoole;
 use App;
 use App\RPCClient;
-
+/**
+ * TODO:: 接口需要加入密钥验证和token验证 后续需要加入
+ */
 class Api extends Swoole\Controller {
 
     //用户输入的值
@@ -22,7 +24,6 @@ class Api extends Swoole\Controller {
     protected static $errorCode;
 
     public function __construct(Swoole $swoole) {
-
         parent::__construct($swoole);
 
         $this->getClass(); //获取当前操作
@@ -42,12 +43,14 @@ class Api extends Swoole\Controller {
      * @return type
      */
     public function __call($func, $param) {
+        //判断code
         $interCodeData = $this->issetInterEroorCode();
         if (!empty($interCodeData)) return $interCodeData;
-        if (method_exists($this, $func)) {
+        //加载方法
+        if (is_callable($this, $func)) {
             $this->$func($this->userInput);
         } else {
-            $this->fillValue();
+            $this->fillValue();//填充查询值
             $jsonData = $this->_filterData(RPCClient::api($this->config));
             return json_encode($jsonData);
         }

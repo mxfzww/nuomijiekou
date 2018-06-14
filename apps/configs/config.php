@@ -1,4 +1,4 @@
 <?php
 return array(
-    "interface"=>"baidu",
+    "interface"=>"pansou,baidu,wangpan",
 );

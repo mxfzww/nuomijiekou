@@ -594,16 +594,19 @@ class Swoole
             echo Swoole\Error::info('MVC Error!',"UrlRouter hook is empty");
             return false;
         }
-
+        
         $uri = strstr($_SERVER['REQUEST_URI'], '?', true);
+        //print_r($uri);
         if ($uri === false)
         {
             $uri = $_SERVER['REQUEST_URI'];
         }
-
+        
         $uri = trim($uri, '/');
+       //$uri = explode("//",$uir );
+       // print_r($uri);
         $mvc = array();
-
+        
         //URL Router
         foreach ($this->hooks[self::HOOK_ROUTE] as $hook)
         {

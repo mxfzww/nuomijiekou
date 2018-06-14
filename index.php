@@ -1,9 +1,8 @@
 <?php
 define('DEBUG', 'on');
-//必须设置此目录,PHP程序的11根目录
+//必须设置此目录,PHP程序的1111根目录
 define('WEBPATH', __DIR__);
 define('WEBROOT', 'http://www.swoole.com/');
-
 require __DIR__ . '/vendor/autoload.php';
 //包含框架入口文件
 require __DIR__ . '/libs/lib_config.php';

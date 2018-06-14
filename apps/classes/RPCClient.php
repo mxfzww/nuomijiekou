@@ -4,40 +4,26 @@ use Swoole;
 /** 
  * RPC client 接口 
  * 
- * @author 郭志强 
- * @return void 
- * @throws Exception 
+ * @author 赵巍
  * 
  */  
 class RPCClient  
 {  
     /** 
-     * API 
-     * 
-     * @author 郭志强 
-     * @return void 
-     * @throws Exception 
-     * @param namespace：空间名称，如"App\\Test::hello" ，hello为方法 。param传参 
-     * @access public 
+     * api 
+     * @author赵巍
+     * @return json
      */  
     public static function api( array $condition)  
-    {  
-  
-        $default = [  
-            'namespace' => "App\\RPCApi::api",  
-            'param' => [],  
-        ];  
-        $condition = array_merge($default,$condition);  
+    {    
         if (!$condition['namespace'] || empty($condition['param'])) {  
             return ;  
         }  
         $client = Swoole\Client\RPC::getInstance();  
-        // //$client->setEncodeType(false, true);  
-        // // $client->putEnv('app', 'test');  
-        $client->auth('rpcname', 'rpc@123456');//认证账号和密码  
+        $client->auth('zhaowei', 'zhaoweidemima');
         $client->addServers(array('host' => '127.0.0.1', 'port' => 9999));  
-        $ret = $client->task($condition['namespace'], [$condition['param']]);  //必须先设置 task_worker_num，并且必须设置Server的onTask和onFinish事件回调函数。
-        $client->wait(0.5); //500ms超时  
+        $ret = $client->task($condition['namespace'], [$condition['param']]);
+        $client->wait(0.5); 
         unset($client);  
         return  $ret->data;  
     }  

@@ -20,28 +20,21 @@ class RPCApi {
      * @throws Exception 
      * @access public 
      */
-    public static function api(array $condition) {
-        $default = [
-            //model名字  
-            'model' => '',
-            //方法名  
-            'action' => '',
-            //参数  
-            'param' => [],
-        ];
-       // return 
-        $condition = array_merge($default, $condition);
-        if (!$condition['model']) {
-            return "Error Model Not Found ";
+    public static function api(array $parm) {
+        //判断方法
+        if (!$parm['action']) {
+            return "action not found";
         }
-        if (!$condition['action']) {
-            return "Error Action Not Found ";
+        //判断model
+        if (!$parm['model']) {
+            return "model not found";
         }
-        $action = $condition['action'];
-        if ($condition['param']) {
-            return model($condition['model'])->$action($condition['param']);
+
+        $action = $parm['action'];
+        if ($parm['param']) {
+            return model($parm['model'])->$action($parm['param']);
         }
-        return model($condition['model'])->$action();
+        return model($parm['model'])->$action();
     }
 
 }
